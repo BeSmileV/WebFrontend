@@ -1,0 +1,27 @@
+body {
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  * {
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-sizing: border-box;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  a {
+    appearance: none;
+    text-decoration: none;
+  }
+}

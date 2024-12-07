@@ -1,0 +1,1 @@
+export {default as DetailPageStyle} from './DetailPage.module.scss'

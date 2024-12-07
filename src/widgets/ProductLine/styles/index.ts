@@ -1,0 +1,1 @@
+export {default as ProductLineStyle} from './ProductLine.module.scss'

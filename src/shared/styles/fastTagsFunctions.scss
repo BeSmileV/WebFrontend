@@ -1,0 +1,31 @@
+@mixin centerInsideContent($flex-direction: row) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $flex-direction;
+}
+
+@mixin changeSvg($stroke: null, $fill: null, $width: null, $height: null, $flex: null) {
+  svg {
+    @if ($width != null) {
+      width: #{$width}px;
+    }
+    @if ($height != null) {
+      height: #{$height}px;
+    }
+
+    @if ($flex != null) {
+      flex: $flex;
+    }
+
+    * {
+      @if ($stroke != null) {
+        stroke: $stroke;
+      }
+
+      @if ($fill != null) {
+        fill: $fill;
+      }
+    }
+  }
+}

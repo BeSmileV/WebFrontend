@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Golos UI";
+  src: local("Golos UI"),
+  url('./fonts/Golos-UI-VF/golos-ui_vf.woff2') format('woff2'),
+  url('./fonts/Golos-UI-VF/golos-ui_vf.woff') format('woff');
+  font-style: normal;
+}
+
+$golos: 'Golos UI', sans-serif;

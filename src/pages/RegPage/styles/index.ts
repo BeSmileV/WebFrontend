@@ -1,0 +1,1 @@
+export {default as RegPageStyle} from './RegPage.module.scss'

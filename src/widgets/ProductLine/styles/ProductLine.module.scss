@@ -1,0 +1,30 @@
+@use 'src/shared/styles' as *;
+
+.productLine {
+  width: 100%;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 130px;
+
+  .label {
+    width: 100%;
+    text-align: center;
+    @include fnt($size: 55, $line-height: 82.5, $weight: 500, $color: $gray-900);
+  }
+
+  .list {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-wrap: nowrap;
+
+    gap: 20px;
+
+    overflow-x: scroll;
+    scrollbar-width: none;
+  }
+}

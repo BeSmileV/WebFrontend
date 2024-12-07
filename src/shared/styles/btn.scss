@@ -1,0 +1,22 @@
+@use "colors" as *;
+@use "font" as *;
+
+@mixin btn() {
+  width: 100%;
+  height: fit-content;
+
+  border-radius: 15px;
+  padding: 10px;
+  text-align: center;
+  background-color: $main-yellow;
+  @include fnt($size: 14, $line-height: 21, $weight: 600, $color: $main-black);
+
+  transition: all ease-out 200ms;
+
+  &:hover {
+    background-color: $main-black;
+    color: $white;
+  }
+
+  @content;
+}

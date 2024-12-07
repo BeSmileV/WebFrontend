@@ -1,0 +1,57 @@
+@use 'src/shared/styles' as *;
+
+.header {
+  width: 100vw;
+  height: fit-content;
+
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+
+  background-color: $white;
+
+  .logo {
+    width: fit-content;
+    height: fit-content;
+
+    padding: 6px;
+    @include fnt($size: 16, $line-height: 24, $weight: 700, $color: $gray-900);
+    background-color: $main-yellow;
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+
+    .iconButton {
+      width: fit-content;
+      height: fit-content;
+
+      @include centerInsideContent();
+
+      padding: 6px;
+      border-radius: 8px;
+
+      transition: background-color 200ms ease-out;
+
+      @include changeSvg($width: 24, $height: 24, $stroke: $gray-700, $flex: none);
+
+      &:hover {
+        background-color: $gray-300;
+      }
+
+    }
+  }
+
+  .modalWindow {
+    width: fit-content;
+    height: fit-content;
+
+    position: absolute;
+    top: 80px;
+    right: 20px;
+  }
+}

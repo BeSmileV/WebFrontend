@@ -1,0 +1,70 @@
+@use 'src/shared/styles' as *;
+
+.loginPage {
+  width: 100vw;
+  height: 100vh;
+
+  @include centerInsideContent();
+
+  .form {
+    width: 300px;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+    background-color: $white;
+    border-radius: 20px;
+
+    .label {
+      @include fnt($size: 24, $line-height: 32, $weight: 400, $color: $gray-900);
+    }
+
+    .inputField {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      gap: 4px;
+
+      .label {
+        width: 100%;
+        padding: 0 12px;
+        @include fnt($size: 14, $line-height: 20, $weight: 500, $color: $gray-900);
+      }
+
+      .input {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background-color: $white;
+        border: 1px solid $gray-300;
+        box-shadow: 0 1px 2px 0 #1018280D;
+        @include fnt($size: 16, $line-height: 24, $weight: 400, $color: $gray-900);
+      }
+    }
+
+    .link {
+      width: 100%;
+      text-align: center;
+      @include fnt($size: 16, $line-height: 24, $weight: 400, $color: $main-yellow);
+    }
+
+    .link {
+      width: 100%;
+      text-align: center;
+      @include fnt($size: 16, $line-height: 24, $weight: 400, $color: $main-yellow);
+    }
+
+    .secondLink {
+      width: 100%;
+      text-align: center;
+      @include fnt($size: 16, $line-height: 24, $weight: 400, $color: $gray-900);
+    }
+
+    .submitButton {
+      @include btn();
+    }
+  }
+}

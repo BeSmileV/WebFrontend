@@ -1,0 +1,1 @@
+export {default as ProductMiniCartStyle} from './ProductMiniCart.module.scss'

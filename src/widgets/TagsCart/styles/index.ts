@@ -1,0 +1,1 @@
+export {default as TagsCartStyle} from './TagsCart.module.scss'

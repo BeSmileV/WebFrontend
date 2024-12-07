@@ -1,0 +1,104 @@
+@use 'src/shared/styles' as *;
+
+.cartWindow {
+  width: 600px;
+  height: fit-content;
+  max-height: 800px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+  padding: 20px;
+  border-radius: 10px;
+
+  background-color: $white;
+  box-shadow: 0 4px 6px -2px #10182808, 0 12px 16px -4px #10182814;
+
+  overflow-y: scroll;
+  scrollbar-width: none;
+
+  .loginLink {
+    @include btn();
+  }
+
+  .cartCard {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+
+    .img {
+      width: 80px;
+      height: 80px;
+      object-fit: scale-down;
+    }
+
+    .info {
+      flex: 1;
+      width: 100px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      .name {
+        width: 100%;
+        text-align: start;
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
+        @include fnt($size: 21, $line-height: 31, $weight: 500, $color: $gray-900);
+      }
+
+      .helperText {
+        width: 100%;
+        text-align: start;
+        text-overflow: ellipsis;
+        @include fnt($size: 16, $line-height: 24, $weight: 300, $color: $gray-900);
+      }
+    }
+
+    .price {
+      @include fnt($size: 20, $line-height: 30, $weight: 400, $color: $gray-900);
+    }
+
+    .deleteButton {
+      padding: 6px;
+      border-radius: 8px;
+      @include changeSvg($width: 20, $height: 20, $flex: none, $stroke: $gray-600);
+
+      &:hover {
+        background-color: $gray-300;
+      }
+    }
+  }
+
+  .success {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    @include changeSvg($width: 100, $height: 100, $stroke: $main-green, $flex: none);
+    animation: successAnimation 2s linear forwards;
+  }
+}
+
+@keyframes successAnimation {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 25%;
+  }
+  50% {
+    opacity: 50%;
+  }
+  75% {
+    opacity: 75%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}

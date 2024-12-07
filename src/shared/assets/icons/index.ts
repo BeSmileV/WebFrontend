@@ -1,0 +1,5 @@
+export {default as UserSquareSVG} from './user-square.svg'
+export {default as ShopingCart01SVG} from './shooping-cart-01.svg'
+export {default as Logout01SVG} from './log-out-01.svg'
+export {default as XCloseSVG} from './x-close.svg'
+export {default as CheckSVG} from './check.svg'

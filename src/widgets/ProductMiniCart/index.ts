@@ -1,0 +1,1 @@
+export {default as ProductMiniCart} from './ui/ProductMiniCart'

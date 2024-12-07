@@ -1,0 +1,1 @@
+export {default as LoginPageStyle} from './LoginPage.module.scss'

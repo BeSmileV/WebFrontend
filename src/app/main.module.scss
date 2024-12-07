@@ -1,0 +1,13 @@
+@use 'src/shared/styles' as *;
+
+.main {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+
+  background-color: $main-gray;
+}
