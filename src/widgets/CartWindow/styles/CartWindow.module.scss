@@ -22,6 +22,12 @@
     @include btn();
   }
 
+  .chooseProduct {
+    width: 100%;
+    text-align: center;
+    @include fnt($size: 21, $line-height: 31, $weight: 500, $color: $gray-900);
+  }
+
   .cartCard {
     width: 100%;
     height: fit-content;

@@ -20,7 +20,7 @@ export default function ProductMiniCart({item, onClick}: ProductMiniCartPropsTyp
                         <span className={ProductMiniCartStyle.label}>{item.name}</span>
                         <div className={ProductMiniCartStyle.info}>
                             <span className={ProductMiniCartStyle.description}>{item.helper_text}</span>
-                            <span className={ProductMiniCartStyle.cost}>{item.price}</span>
+                            <span className={ProductMiniCartStyle.cost}>{item.price} ₽</span>
                         </div>
                     </div>
                     <button onClick={onClick} className={ProductMiniCartStyle.seeButton}>Посмотреть</button>

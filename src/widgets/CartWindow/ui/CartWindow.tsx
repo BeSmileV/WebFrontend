@@ -1,30 +1,28 @@
 import {CartWindowStyle} from "../styles";
-import {useEffect, useState} from "react";
-import {CartType} from "@/features/Cart/api/getCartRequest";
-import {getCartRequest, removeFromCartRequest} from "@/features/Cart";
-import {ProductResponseType} from "@/features/Product";
+import {useState} from "react";
+import {removeFromCartRequest} from "@/features/Cart";
+import {ProductListResponseType, ProductResponseType} from "@/features/Product";
 import {CheckSVG, XCloseSVG} from "@/shared/assets";
 import {getBackendFileUrl} from "@/features/Backend";
 import buyRequest from "@/features/Cart/api/buyRequest";
+import {useAppSelector} from "@/store/hooks";
+import {clearCart, deleteFromCart, selectCart} from "@/store/slices/CartSlice";
+import useActionSlice from "@/store/useActionSlice";
+import {useCookies} from "next-client-cookies";
+import {JWT_TOKEN_COOKIE_NAME} from "@/features/Auth";
 
 export default function CartWindow() {
-    const [cart, setCart] = useState<CartType | 'success_buy' | null | undefined>(undefined)
+    const cart: ProductListResponseType = useAppSelector(selectCart)
+    const deleteFromCartAction = useActionSlice(deleteFromCart)
+    const clearCartAction = useActionSlice(clearCart)
+    const [successBuy, setSuccessBuy] = useState<boolean>(false)
 
-    useEffect(() => {
-        getCartRequest().then(setCart)
-    }, []);
-
+    const cookies = useCookies()
     const removeProduct = async (productId?: number) => {
         if (productId) {
             const response = await removeFromCartRequest(productId)
             if (response) {
-                setCart(prevState => {
-                    if (!prevState || prevState === 'success_buy')
-                        return prevState
-                    const newState = {...prevState}
-                    newState.products = newState.products?.filter(item => item.id !== productId)
-                    return newState
-                })
+                deleteFromCartAction(productId)
             }
         }
     }
@@ -33,7 +31,8 @@ export default function CartWindow() {
         const response = await buyRequest()
 
         if (response) {
-            setCart('success_buy')
+            setSuccessBuy(true)
+            clearCartAction()
         }
     }
 
@@ -53,22 +52,20 @@ export default function CartWindow() {
     }
 
     const getContent = () => {
-        switch (cart) {
-            case undefined:
-                return 'Loading...'
-            case null:
-                return <a href={'/login'} className={CartWindowStyle.loginLink}>Войти</a>
-            case 'success_buy':
-                return <div className={CartWindowStyle.success}><CheckSVG/></div>
-            default:
-                return (
-                    <>
-                        {cart.products.map((item, idx) => <CartCard item={item} key={idx}/>)}
-                        <button onClick={buyProducts} className={CartWindowStyle.loginLink}>Купить</button>
-                    </>
-                )
+        if (!cookies.get(JWT_TOKEN_COOKIE_NAME))
+            return <a href={'/login'} className={CartWindowStyle.loginLink}>Войти</a>
 
-        }
+        if (successBuy)
+            return <div className={CartWindowStyle.success}><CheckSVG/></div>
+
+        return (
+            <>
+                {cart.map((item, idx) => <CartCard item={item} key={idx}/>)}
+                {cart.length > 0 ?
+                    <button onClick={buyProducts} className={CartWindowStyle.loginLink}>Купить</button> :
+                    <span className={CartWindowStyle.chooseProduct}>Выберите товары</span>}
+            </>
+        )
     }
 
     return (

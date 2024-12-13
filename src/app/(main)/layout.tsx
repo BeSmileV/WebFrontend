@@ -1,11 +1,15 @@
 import {Header} from "@/widgets/Header";
-import style  from './style.module.scss'
+import style from './style.module.scss'
+import {MainLayout} from "@/pages/MainPage";
 
 export default function Layout({children}: { children?: React.ReactNode }) {
     return (
-        <div className={style.layout}>
-            <Header/>
-            {children}
-        </div>
+        <MainLayout>
+            <div className={style.layout}>
+                <Header/>
+
+                {children}
+            </div>
+        </MainLayout>
     )
 }

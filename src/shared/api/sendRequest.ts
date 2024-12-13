@@ -37,7 +37,7 @@ export default async function sendRequest({
                                           }: SendRequestPropsType): Promise<Response | null> {
     const token = getCookie(JWT_TOKEN_COOKIE_NAME)
     try {
-        return await fetch(url, {
+        const response = await fetch(url, {
             method: type,
             headers: {
                 ...header,
@@ -46,6 +46,7 @@ export default async function sendRequest({
             } as { [key: string]: string },
             body: contentType === 'json' ? JSON.stringify(body) : body,
         })
+        return response
     } catch (error) {
         return null
     }

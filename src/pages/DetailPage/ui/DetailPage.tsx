@@ -5,10 +5,19 @@ import {getProductDetailRequest, ProductResponseType} from "@/features/Product";
 import {getBackendFileUrl} from "@/features/Backend";
 import {DetailPageStyle} from '../styles'
 import {addToCartRequest} from "@/features/Cart";
+import {useAppSelector} from "@/store/hooks";
+import {addToCart, selectCart} from "@/store/slices/CartSlice";
+import useActionSlice from "@/store/useActionSlice";
 
 export default function DetailPage({id}: { id: number }) {
     const [product, setProduct] = useState<ProductResponseType | undefined>()
     const [curImage, setCurImage] = useState<number>(0)
+    const addToCartRequestAction = useActionSlice(addToCart)
+    const cart = useAppSelector(selectCart)
+
+    const isInCart = (): boolean => {
+        return !!cart.find(item => item.id === id)
+    }
 
     useEffect(() => {
         getProductDetailRequest(Number(id)).then(setProduct)
@@ -16,7 +25,10 @@ export default function DetailPage({id}: { id: number }) {
 
     const onAdd = async () => {
         if (product) {
-            const repsonse = await addToCartRequest(product.id)
+            const response = await addToCartRequest(product.id)
+            if (response) {
+                addToCartRequestAction(product)
+            }
         }
     }
 
@@ -33,7 +45,12 @@ export default function DetailPage({id}: { id: number }) {
             </div>
             <div className={DetailPageStyle.infoBlock}>
                 <span className={DetailPageStyle.name}>{product.name}</span>
-                <span className={DetailPageStyle.price}>{product.price} ₽</span>
+                <div className={DetailPageStyle.actions}>
+                    <span className={DetailPageStyle.price}>{product.price} ₽</span>
+                    {isInCart() ? <div className={DetailPageStyle.inCart}>В корзине</div> :
+                        <button onClick={onAdd} className={DetailPageStyle.inCartButton}>В корзину</button>}
+
+                </div>
                 <div className={DetailPageStyle.tagsList}>
                     <span className={DetailPageStyle.label}>Теги</span>
                     <div className={DetailPageStyle.list}>
@@ -44,7 +61,6 @@ export default function DetailPage({id}: { id: number }) {
                     <span className={DetailPageStyle.label}>Описание</span>
                     <div className={DetailPageStyle.text}>{product.description}</div>
                 </div>
-                <button onClick={onAdd} className={DetailPageStyle.inCartButton}>В корзину</button>
             </div>
         </div>
     ) : 'Loading...'

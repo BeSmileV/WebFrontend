@@ -1,16 +1,16 @@
 'use client'
 
-import {useRef} from "react";
+import {useState} from "react";
 import {register, RegisterFormDataType} from "@/features/Auth";
 import {useRouter} from "next/navigation";
 import {RegPageStyle} from "../styles";
+import {FormBuilder} from "form-builder-npm-lib";
 
 export default function RegPage() {
-    const formDataRef = useRef<RegisterFormDataType>({} as RegisterFormDataType);
     const router = useRouter();
+    const [formData, setFormData] = useState<RegisterFormDataType>({} as RegisterFormDataType)
 
     const onClick = async () => {
-        const formData = formDataRef.current
         if (formData) {
             const response = await register(formData)
 
@@ -20,34 +20,50 @@ export default function RegPage() {
         }
     }
 
-    const setUserName = (value: string) => {
-        formDataRef.current.username = value
-    }
-    const setPassword = (value: string) => {
-        formDataRef.current.password = value
-    }
-    const setUpasswordConfirm = (value: string) => {
-        formDataRef.current.password_confirm = value
+    const checkRepeatPassword = (password_confirm: string) => {
+        if (password_confirm !== formData.password) {
+            return 'Не совпадают пароли'
+        }
+        return true
     }
 
     return (
         <div className={RegPageStyle.regPage}>
             <div className={RegPageStyle.form}>
                 <span className={RegPageStyle.label}>Вход</span>
-                <div className={RegPageStyle.inputField}>
-                    <label className={RegPageStyle.label}>Имя пользователя</label>
-                    <input type={'text'} onChange={(e) => setUserName(e.target.value)} className={RegPageStyle.input}/>
-                </div>
-                <div className={RegPageStyle.inputField}>
-                    <label className={RegPageStyle.label}>Пароль</label>
-                    <input type={'password'} onChange={(e) => setPassword(e.target.value)}
-                           className={RegPageStyle.input}/>
-                </div>
-                <div className={RegPageStyle.inputField}>
-                    <label className={RegPageStyle.label}>Повтор пароля</label>
-                    <input type={'password'} onChange={(e) => setUpasswordConfirm(e.target.value)}
-                           className={RegPageStyle.input}/>
-                </div>
+                <FormBuilder onChange={setFormData}
+                             schema={[
+                                 {
+                                     type: 'input_field',
+                                     props: {
+                                         name: 'username',
+                                         type: 'text',
+                                         labelText: 'Имя пользователя',
+                                         required: true,
+                                         onBlurValidation: {required: true},
+                                     }
+                                 },
+                                 {
+                                     type: 'input_field',
+                                     props: {
+                                         name: 'password',
+                                         type: 'password',
+                                         labelText: 'Пароль',
+                                         required: true,
+                                         onBlurValidation: {required: true},
+                                     }
+                                 },
+                                 {
+                                     type: 'input_field',
+                                     props: {
+                                         name: 'password_confirm',
+                                         type: 'password',
+                                         labelText: 'Повторите пароль',
+                                         required: true,
+                                         onBlurValidation: {required: true, fun: checkRepeatPassword},
+                                     }
+                                 },
+                             ]}/>
                 <button className={RegPageStyle.submitButton} onClick={onClick}>Зарегистрироваться</button>
                 <a href={'/login'} className={RegPageStyle.link}>Вернутся ко входу</a>
             </div>
